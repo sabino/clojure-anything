@@ -1,0 +1,6 @@
+[{:name "Unicode argument" :args ["echo" "Olá 🍀"] :env {"TEXTKIT_PREFIX" ""}}
+ {:name "environment and literal argument" :args ["echo" "a; $(b)"]
+  :env {"TEXTKIT_PREFIX" "note: "}}
+ {:name "lines with a partial final line" :args ["lines"] :stdin "Olá\n世界"}
+ {:name "empty stdin" :args ["lines"]}
+ {:name "invalid command" :args ["unknown"]}]

@@ -14,3 +14,10 @@ jobs:
         with:
           bb: '1.13.229'
       - run: bb test
+      - name: Run the README replay example
+        run: |
+          work_dir=$(mktemp -d)
+          bb clojure-anything record examples/textkit/cases.edn "$work_dir/recording.edn" \
+            -- python3 examples/textkit/original.py
+          bb clojure-anything check "$work_dir/recording.edn" \
+            -- bb -cp examples/textkit/ports/src -m textkit.core

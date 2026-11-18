@@ -17,11 +17,14 @@ Convert options:
   --from json|edn|text|source
                           Infer JSON, EDN and .txt by extension, or source with an agent
   --namespace NAME        Output namespace (default converted.core)
-  --out DIR               New output directory (required for source)
+  --out DIR               New output directory (data prints to stdout by default)
   --codex                 Use Codex CLI for source conversion
   --brief TEXT            Extra instructions for the agent
   --cases RECORDING.edn   Include recorded behavior in the conversion
-  --timeout SEC           Agent timeout (default 600)")
+  --timeout SEC           Agent timeout (default 600)
+
+Source conversion requires --out DIR and an agent. For record and check,
+--timeout sets the time per case (default 15 seconds).")
 
 (def ^:private common-options
   {:help {:coerce :boolean :alias :h}

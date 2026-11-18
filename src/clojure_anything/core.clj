@@ -166,6 +166,14 @@
                   (fs/create-dirs (fs/parent file))
                   (spit (fs/file file) content :encoding "UTF-8"))))))
 
+(defn- kill-command! [{:keys [proc]}]
+  (let [root (.toHandle proc)]
+    (with-open [descendants (.descendants root)]
+      (let [children (vec (iterator-seq (.iterator descendants)))]
+        (.destroyForcibly root)
+        (doseq [child children]
+          (.destroyForcibly child))))))
+
 (defn run-command! [command timeout {:keys [stdin env dir]}]
   (fs/with-temp-dir [capture {:prefix "clojure-anything-capture-"}]
     (let [out (fs/file capture "stdout")
@@ -175,7 +183,7 @@
                                           :shutdown process/destroy-tree})
           result (deref child (* 1000 timeout) ::timeout)]
       (when (= ::timeout result)
-        (process/destroy-tree child)
+        (kill-command! child)
         (fail (str (first command) " timed out after " timeout "s.")))
       {:exit (:exit result)
        :stdout (read-bytes out recording-limit)

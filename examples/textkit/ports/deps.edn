@@ -1,0 +1,3 @@
+{:paths ["src"]
+ :aliases {:cljs {:extra-deps {org.clojure/clojurescript {:mvn/version "1.12.145"}}
+                  :main-opts ["-m" "cljs.main"]}}}

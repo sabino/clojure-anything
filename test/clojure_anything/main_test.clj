@@ -95,6 +95,20 @@
         (is (str/includes? (:err result) "timed out after 1s"))
         (is (not (fs/exists? out)))))))
 
+(deftest timeout-stops-subprocesses
+  (when (fs/executable? "/bin/sh")
+    (fs/with-temp-dir [dir {}]
+      (let [cases (fs/path dir "cases.edn")
+            out (fs/path dir "recording.edn")
+            marker (fs/path dir "still-running")]
+        (spit (fs/file cases) "[{:name \"timeout\"}]")
+        (let [result (cli "" "record" "--timeout" "1" cases out "--" "/bin/sh" "-c"
+                          "trap '' TERM; (sleep 2; touch \"$1\") & wait" "textkit" marker)]
+          (is (= 2 (:exit result)))
+          (is (str/includes? (:err result) "timed out after 1s")))
+        (Thread/sleep 1500)
+        (is (not (fs/exists? marker)))))))
+
 (defn run []
   (let [{:keys [fail error]} (run-tests 'clojure-anything.main-test)]
     (when (pos? (+ fail error))
