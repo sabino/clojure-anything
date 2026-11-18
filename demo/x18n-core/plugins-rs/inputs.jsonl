@@ -1,8 +1,0 @@
-{"fn":"extensionOf","args":["src/locales/en.json"]}
-{"fn":"extensionOf","args":["src/locales/EN.YAML"]}
-{"fn":"extensionOf","args":["Messages.de.properties"]}
-{"fn":"extensionOf","args":[".gitignore"]}
-{"fn":"extensionOf","args":["dir.with.dots/file"]}
-{"fn":"extensionOf","args":["file."]}
-{"fn":"extensionOf","args":["C:\\win\\path.TXT"]}
-{"fn":"extensionOf","args":["ß.ẞ"]}

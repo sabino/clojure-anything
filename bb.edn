@@ -1,0 +1,8 @@
+{:min-bb-version "1.13.229"
+ :paths ["src"]
+ :tasks {clojure-anything {:doc "Convert inputs and replay behavior"
+                          :requires ([clojure-anything.main :as main])
+                          :task (apply main/-main *command-line-args*)}
+         test {:extra-paths ["test"]
+               :requires ([clojure-anything.main-test :as test])
+               :task (test/run)}}}

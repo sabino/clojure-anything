@@ -1,7 +1,0 @@
-{"fn":"toWireRange","args":["line one\nline two\nline three",5,14]}
-{"fn":"toWireRange","args":["a😀b\nc",3,5]}
-{"fn":"toWireRange","args":["\n\n\n",3,3]}
-{"fn":"toWireRange","args":[{"$undefined":true},0,0]}
-{"fn":"toWireRange","args":["abc",-2,99]}
-{"fn":"toWireRange","args":["ab\r\ncd",3,4]}
-{"fn":"toWireRange","args":["x",1.5,{"$num":"NaN"}]}
