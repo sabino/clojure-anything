@@ -89,6 +89,8 @@ Each case has a unique `:name`. `:args` is a vector of strings appended to the c
 
 Each case runs in the current directory. The recording holds the cases, exit statuses, and exact stdout and stderr. Output that cannot be decoded as UTF-8 is stored as Base64. `check` prints the expected and actual values for fields that differ. It exits `0` when every case matches, `1` on a mismatch, and `2` on an input or execution error. The default timeout is 15 seconds per case, adjustable with `--timeout SEC` before the case or recording path.
 
+Finish installation and compilation before recording or checking. Pass the command that runs the program so the comparison captures its output.
+
 For a library or HTTP API, give `record` and `check` commands that exercise the same interface and print the results you want to compare. Add representative and edge cases to cover the behavior you rely on.
 
 ## Generate a port with an agent
@@ -117,7 +119,7 @@ Open the generated README for the build and run commands. Review the code, then 
 For a ClojureScript port, use `--to cljs` and a different `--out` directory. The agent defaults to Node.js for ClojureScript CLIs. Set the platform or dependencies explicitly with `--brief`. You can also write a specification directly on stdin.
 
 ```sh
-printf '%s\n' 'Build a Node.js CLI that reads stdin and prints the longest line.' \
+printf '%s\n' 'Read stdin and print the first longest line with a newline. Print nothing for empty input.' \
   | bb clojure-anything convert --codex --to cljs --out "$work_dir/longest-line" -
 ```
 
